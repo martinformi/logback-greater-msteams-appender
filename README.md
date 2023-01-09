@@ -13,7 +13,7 @@ Prerequisities:
 Add the following settings to you pom.xml.
 ```xml
     <dependency>
-      <groupId>com.github.michl-b</groupId>
+      <groupId>com.develmagic</groupId>
       <artifactId>logback-greater-msteams-appender</artifactId>
       <version>1.0.0</version>
     </dependency>

@@ -6,8 +6,8 @@
     <description>Logback appender for sending messages to MS Teams chats.</description>
     <url>https://github.com/martinformi/logback-greater-msteams-appender</url>
 
-    <groupId>com.github.michl-b</groupId>
-    <artifactId>logback-msteams-appender</artifactId>
+    <groupId>com.develmagic</groupId>
+    <artifactId>logback-greater-msteams-appender</artifactId>
     <version>1.0.1-SNAPSHOT</version>
 
     <licenses>

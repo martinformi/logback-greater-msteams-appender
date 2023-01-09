@@ -19,6 +19,8 @@ public class MsTeamsAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
     private static final String APPLICATION_JSON = "application/json";
     private static final String CONTENT_TYPE = "Content-Type";
     private static final String METHOD_POST = "POST";
+    private static final String ENV_ENABLED_FLAG  = "MSTEAMS_APPENDER_ENABLED";
+    private static final String ENV_MSTEAMS_WEBHOOK_URL  = "MSTEAMS_APPENDER_WEBHOOK_URL";
 
     private static Layout<ILoggingEvent> defaultLayout =
             new LayoutBase<ILoggingEvent>() {
@@ -45,9 +47,43 @@ public class MsTeamsAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
     private String webhookUri;
     private int timeout = 30_000;
     private Layout<ILoggingEvent> layout = defaultLayout;
+    private boolean appenderConfigured = false;
+
+    public MsTeamsAppender() {
+        if (System.getenv(ENV_ENABLED_FLAG) == null || System.getenv(ENV_ENABLED_FLAG).equals("0")) {
+            System.out.println("Logback greater MSTeams appender not enabled");
+            return;
+        }
+        if (getWebhookUri() == null) {
+            System.err.println("Logback greater MSTeams appender enabled, but no webhooh URI set.");
+            System.err.println("Set it as environmental variable : MSTEAMS_APPENDER_WEBHOOK_URL");
+            return;
+        }
+        appenderConfigured = true;
+    }
+
+    public int getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(int timeout) {
+        this.timeout = timeout;
+    }
+
+    public String getAppName() {
+        return appName;
+    }
+
+    public void setAppName(String appName) {
+        this.appName = appName;
+    }
 
     @Override
     protected void append(final ILoggingEvent event) {
+        if (!appenderConfigured) {
+            return;
+        }
+
         try {
             String[] parts = layout.doLayout(event).split("\n", 1);
 
@@ -98,27 +134,8 @@ public class MsTeamsAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
         os.close();
     }
 
-    public int getTimeout() {
-        return timeout;
-    }
 
-    public void setTimeout(int timeout) {
-        this.timeout = timeout;
-    }
-
-    public String getWebhookUri() {
-        return webhookUri;
-    }
-
-    public void setWebhookUri(String webhookUri) {
-        this.webhookUri = webhookUri;
-    }
-
-    public String getAppName() {
-        return appName;
-    }
-
-    public void setAppName(String appName) {
-        this.appName = appName;
+    private String getWebhookUri() {
+        return System.getenv(ENV_MSTEAMS_WEBHOOK_URL);
     }
 }

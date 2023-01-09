@@ -28,7 +28,7 @@ public class MsTeamsAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
                     if (throwbleProxy != null) {
                         sbuf.append("<br><pre>");
                         String throwableStr = ThrowableProxyUtil.asString(throwbleProxy);
-                        sbuf.append(throwableStr);
+                        sbuf.append(throwableStr.replace("\t", "   "));
                         sbuf.append(CoreConstants.LINE_SEPARATOR);
                         sbuf.append("</pre>");
                     }

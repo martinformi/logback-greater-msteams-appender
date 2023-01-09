@@ -8,7 +8,7 @@
 
     <groupId>com.develmagic</groupId>
     <artifactId>logback-greater-msteams-appender</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.2</version>
 
     <licenses>
         <license>
@@ -23,7 +23,7 @@
         </developerConnection>
         <connection>scm:git:https://github.com/martinformi/logback-greater-msteams-appender.git</connection>
         <url>https://github.com/martinformi/logback-greater-msteams-appender</url>
-        <tag>HEAD</tag>
+        <tag>logback-greater-msteams-appender-1.0.2</tag>
     </scm>
 
     <developers>

@@ -26,10 +26,11 @@ public class MsTeamsAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
                     final StringBuffer sbuf = new StringBuffer();
                     final IThrowableProxy throwbleProxy =  event.getThrowableProxy();
                     if (throwbleProxy != null) {
-                        sbuf.append("<br>");
+                        sbuf.append("<br><pre>");
                         String throwableStr = ThrowableProxyUtil.asString(throwbleProxy);
                         sbuf.append(throwableStr);
                         sbuf.append(CoreConstants.LINE_SEPARATOR);
+                        sbuf.append("</pre>");
                     }
                     return "**"
                             + event.getLoggerName()

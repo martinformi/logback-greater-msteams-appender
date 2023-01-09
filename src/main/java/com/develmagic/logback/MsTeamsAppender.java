@@ -1,10 +1,14 @@
 package com.develmagic.logback;
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.classic.spi.IThrowableProxy;
+import ch.qos.logback.classic.spi.ThrowableProxyUtil;
+import ch.qos.logback.core.CoreConstants;
 import ch.qos.logback.core.Layout;
 import ch.qos.logback.core.LayoutBase;
 import ch.qos.logback.core.UnsynchronizedAppenderBase;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -19,10 +23,19 @@ public class MsTeamsAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
     private static Layout<ILoggingEvent> defaultLayout =
             new LayoutBase<ILoggingEvent>() {
                 public String doLayout(ILoggingEvent event) {
+                    final StringBuffer sbuf = new StringBuffer();
+                    final IThrowableProxy throwbleProxy =  event.getThrowableProxy();
+                    if (throwbleProxy != null) {
+                        sbuf.append("<br>");
+                        String throwableStr = ThrowableProxyUtil.asString(throwbleProxy);
+                        sbuf.append(throwableStr);
+                        sbuf.append(CoreConstants.LINE_SEPARATOR);
+                    }
                     return "**"
                             + event.getLoggerName()
                             + "** <br>"
-                            + event.getFormattedMessage().replaceAll("\n", "\n\t");
+                            + event.getFormattedMessage().replaceAll("\n", "\n\t")
+                            + sbuf;
                 }
             };
 

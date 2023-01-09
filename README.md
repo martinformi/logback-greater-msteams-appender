@@ -3,7 +3,7 @@
 Logback appender based on https://github.com/michl-b/logback-msteams-appender with new features coming, fixes and updated 
 dependecies.
 
-# How to setup
+# How to set up
 
 Prerequisities:
 - webhook URL from MS Teams
@@ -23,9 +23,9 @@ Add the following settings to you pom.xml.
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
-      <id>bintray jcenter</id>
-      <name>bintray</name>
-      <url>https://jcenter.bintray.com</url>
+      <id>jfrog</id>
+      <name>jfrog</name>
+      <url>https://martinformi.jfrog.io/artifactory</url>
     </repository>
   </repositories>
 ```

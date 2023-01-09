@@ -59,6 +59,7 @@ public class MsTeamsAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
             System.err.println("Set it as environmental variable : MSTEAMS_APPENDER_WEBHOOK_URL");
             return;
         }
+        webhookUri = getWebhookUri();
         appenderConfigured = true;
     }
 
